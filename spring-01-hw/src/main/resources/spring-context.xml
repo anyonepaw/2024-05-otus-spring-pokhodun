@@ -8,6 +8,7 @@
 
     <bean id="personServiceImpl" class="ru.otus.spring.service.PersonServiceImpl">
         <constructor-arg name="dao" ref="personDaoSimple"/>
+        <property name="resource" value="src/main/resources/quiz.csv" />
     </bean>
 
 </beans>
