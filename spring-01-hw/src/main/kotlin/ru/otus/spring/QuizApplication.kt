@@ -1,15 +1,12 @@
 package ru.otus.spring
 
 import org.springframework.context.support.ClassPathXmlApplicationContext
-import ru.otus.spring.service.PersonService
+import ru.otus.spring.service.QuestionServiceImpl
 
 class QuizApplication
 
-fun main(args: Array<String>) {
+fun main() {
     val ctx = ClassPathXmlApplicationContext("spring-context.xml")
-    val service: PersonService = ctx.getBean(PersonService::class.java)
-    println(service.getSource())
+    val questionServiceImpl = ctx.getBean(QuestionServiceImpl::class.java)
+    questionServiceImpl.execute()
 }
-
-
-

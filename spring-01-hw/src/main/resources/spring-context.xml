@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -8,7 +9,19 @@
 
     <bean id="personServiceImpl" class="ru.otus.spring.service.PersonServiceImpl">
         <constructor-arg name="dao" ref="personDaoSimple"/>
-        <property name="resource" value="src/main/resources/quiz.csv" />
+    </bean>
+
+    <bean id="csvReaderService" class="ru.otus.spring.service.reader.CsvReaderServiceImpl"/>
+
+    <bean id="consoleWriter" class="ru.otus.spring.service.writer.ConsoleWriterServiceImpl"/>
+
+    <bean id="questionConverter" class="ru.otus.spring.service.converter.QuestionConverter"/>
+
+    <bean id="questionServiceImpl" class="ru.otus.spring.service.QuestionServiceImpl">
+        <constructor-arg name="reader" ref="csvReaderService"/>
+        <constructor-arg name="writer" ref="consoleWriter"/>
+        <constructor-arg name="converter" ref="questionConverter"/>
+        <property name="resource" value="src/main/resources/quiz.csv"/>
     </bean>
 
 </beans>

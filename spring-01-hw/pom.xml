@@ -17,6 +17,7 @@
     <kotlin.version>1.8.20</kotlin.version>
     <spring.version>6.0.8</spring.version>
     <main.class>ru.otus.spring.QuizApplicationKt</main.class>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- maven -->
     <maven.compiler.source>17</maven.compiler.source>
@@ -33,8 +34,11 @@
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
 
     <!-- other -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.code.style>official</kotlin.code.style>
+    <kotlin-logging.version>3.0.5</kotlin-logging.version>
+    <logback.version>1.4.6</logback.version>
+    <opencsv.version>5.7.1</opencsv.version>
+
   </properties>
 
   <dependencies>
@@ -53,6 +57,21 @@
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit-jupiter.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>${opencsv.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.microutils</groupId>
+      <artifactId>kotlin-logging-jvm</artifactId>
+      <version>${kotlin-logging.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
     </dependency>
   </dependencies>
 
