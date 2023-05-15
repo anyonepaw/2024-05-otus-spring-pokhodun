@@ -6,7 +6,6 @@
 
   <groupId>ru.otus</groupId>
   <artifactId>hw</artifactId>
-  <version>1.0</version>
 
   <packaging>pom</packaging>
 
