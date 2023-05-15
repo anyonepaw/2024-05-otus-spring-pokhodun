@@ -15,7 +15,7 @@
 
     <bean id="consoleWriter" class="ru.otus.spring.service.writer.ConsoleWriterServiceImpl"/>
 
-    <bean id="questionConverter" class="ru.otus.spring.service.converter.QuestionConverter"/>
+    <bean id="questionConverter" class="ru.otus.spring.service.converter.QuestionConverterImpl"/>
 
     <bean id="questionServiceImpl" class="ru.otus.spring.service.QuestionServiceImpl">
         <constructor-arg name="reader" ref="csvReaderService"/>

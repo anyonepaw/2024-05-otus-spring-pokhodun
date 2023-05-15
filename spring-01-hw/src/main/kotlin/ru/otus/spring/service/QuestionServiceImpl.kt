@@ -2,14 +2,14 @@ package ru.otus.spring.service
 
 import mu.KLogging
 import org.springframework.core.io.Resource
-import ru.otus.spring.service.converter.QuestionConverter
+import ru.otus.spring.service.converter.QuestionConverterImpl
 import ru.otus.spring.service.reader.ReaderService
 import ru.otus.spring.service.writer.WriterService
 
 class QuestionServiceImpl(
     private var reader: ReaderService,
     private var writer: WriterService,
-    private var converter: QuestionConverter
+    private var converter: QuestionConverterImpl
 ) : QuestionService {
 
     private var resource: Resource? = null
@@ -26,8 +26,8 @@ class QuestionServiceImpl(
             logger.error("File reading error: $e")
         }
         readList?.let {
-            val quizList = converter.convertToQuestions(it)
-            val resultString = converter.convertQuestionsToString(quizList)
+            val quizList = converter.convertToEntity(it)
+            val resultString = converter.convertEntityToString(quizList)
             writer.write(resultString)
         }
     }
