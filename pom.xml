@@ -11,5 +11,6 @@
 
   <modules>
     <module>spring-01-hw</module>
+    <module>spring-02-hw</module>
   </modules>
 </project>

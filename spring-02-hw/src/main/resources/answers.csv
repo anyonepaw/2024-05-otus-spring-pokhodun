@@ -1,0 +1,9 @@
+Questions, Right Answers;
+What is the default scope of the Spring Bean?, singleton;
+Different ways to configure Spring-based applications?, XML based configuration, Java-based configuration,
+Annotation based configuration;
+What is the purpose of the Spring IoC container?,
+To manage the lifecycle of beans and their dependencies;
+What are two ways to achieve dependency Injection in Spring?, Using Setter and Constructor;
+In Spring MVC web applications, all the HTTP requests first come to which component?,
+DispatcherServlet;
