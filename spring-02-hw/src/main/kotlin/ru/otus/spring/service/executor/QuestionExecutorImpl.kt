@@ -13,11 +13,9 @@ import ru.otus.spring.service.writer.WriterService
 
 @Component
 class QuestionExecutorImpl(
-    @Qualifier("questionServiceImpl")
     private val questionService: QuestionService,
     @Qualifier("consoleWriterServiceImpl")
     private val writerService: WriterService,
-    @Qualifier("questionConverterImpl")
     private val questionConverter: Converter,
     @Qualifier("consoleReaderServiceImpl")
     private val consoleReader: ReaderService,

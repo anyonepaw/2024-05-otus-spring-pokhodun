@@ -1,9 +1,9 @@
 package ru.otus.spring.dao
 
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 import ru.otus.spring.domain.Person
 
-@Repository
+@Component
 class PersonDaoSimple : PersonDao {
 
     override fun findByName(name: String): Person {

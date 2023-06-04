@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import ru.otus.spring.service.util.Const.MANY_WHITESPACES_REGEX
 
 @Service
-class CsvReaderServiceImpl: ReaderService {
+class CsvReaderServiceImpl : ReaderService, ResourceReader {
     override fun read(resource: Any?): Collection<*> {
         val fileName = (resource as Resource).filename
         val resourceStream = javaClass.classLoader.getResourceAsStream(fileName)
@@ -17,6 +17,16 @@ class CsvReaderServiceImpl: ReaderService {
         return reader.use {
             reader.readAll()
         }.map { it.joinToString().trim().replace(MANY_WHITESPACES_REGEX, " ") }
+    }
+
+    override fun readResource(resource: Resource): List<String> {
+        var readList: List<String> = mutableListOf()
+        try {
+            readList = this.read(resource).map { it as String }
+        } catch (e: Exception) {
+            logger.error("File reading error: $e")
+        }
+        return readList
     }
 
     private companion object : KLogging()
