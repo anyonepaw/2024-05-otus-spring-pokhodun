@@ -1,0 +1,12 @@
+spring:
+  messages:
+    basename: "i18n/messages"
+    encoding: "UTF-8"
+
+localization:
+  locale: ru
+
+quiz:
+  idx:
+    abcdefghijklmnopqrstuvwxyz
+  score: 3
