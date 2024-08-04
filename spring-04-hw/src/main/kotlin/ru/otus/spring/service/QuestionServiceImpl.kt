@@ -3,6 +3,7 @@ package ru.otus.spring.service
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import ru.otus.spring.domain.Question
+import ru.otus.spring.service.config.QuestionProperties
 import ru.otus.spring.service.converter.Converter
 import ru.otus.spring.service.reader.ReaderService
 

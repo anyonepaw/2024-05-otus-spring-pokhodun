@@ -3,9 +3,9 @@ package ru.otus.spring.service.converter
 import org.springframework.stereotype.Component
 import ru.otus.spring.domain.Question
 import ru.otus.spring.service.config.QuestionProperties
-import ru.otus.spring.service.util.Const.COMMA_REGEX
-import ru.otus.spring.service.util.Const.NEW_LINE
-import ru.otus.spring.service.util.Const.QUESTION_REGEX
+import ru.otus.spring.service.util.Regexes.COMMA_REGEX
+import ru.otus.spring.service.util.Regexes.NEW_LINE
+import ru.otus.spring.service.util.Regexes.QUESTION_REGEX
 
 @Component
 class QuestionConverterImpl(

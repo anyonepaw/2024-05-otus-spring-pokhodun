@@ -5,7 +5,7 @@ import java.io.InputStreamReader
 import mu.KLogging
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
-import ru.otus.spring.service.util.Const.MANY_WHITESPACES_REGEX
+import ru.otus.spring.service.util.Regexes.MANY_WHITESPACES_REGEX
 
 @Service
 class CsvReaderServiceImpl : ReaderService {

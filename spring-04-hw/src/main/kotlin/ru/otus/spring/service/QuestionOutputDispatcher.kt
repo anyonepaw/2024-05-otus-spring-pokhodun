@@ -1,23 +1,18 @@
-package ru.otus.spring.service.executor
+package ru.otus.spring.service
 
 import org.apache.commons.collections.CollectionUtils
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.boot.CommandLineRunner
-import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
-import ru.otus.spring.domain.Question
-import ru.otus.spring.service.QuestionService
-import ru.otus.spring.service.QuizLocalizationService
+import ru.otus.spring.dao.SimpleDaoImpl
 import ru.otus.spring.service.config.QuestionProperties
 import ru.otus.spring.service.converter.Converter
 import ru.otus.spring.service.reader.ReaderService
-import ru.otus.spring.service.util.Const.NEW_LINE
+import ru.otus.spring.service.util.Regexes.NEW_LINE
 import ru.otus.spring.service.writer.WriterService
 
 
 @Component
-@Profile("!test")
-class QuestionExecutorImpl(
+class QuestionOutputDispatcher(
     private val questionService: QuestionService,
     @Qualifier("consoleWriterServiceImpl")
     private val writerService: WriterService,
@@ -26,17 +21,44 @@ class QuestionExecutorImpl(
     private val consoleReader: ReaderService,
     private val questionProperties: QuestionProperties,
     private val quizLocalizationService: QuizLocalizationService,
-) : CommandLineRunner {
-    override fun run(vararg args: String?) {
+    private val consoleAnswersDao: SimpleDaoImpl<Int, Collection<*>>,
+) {
+
+    fun introduce() {
         writerService.write(quizLocalizationService.introduction())
         startNewLine()
         val name = buildString { consoleReader.read().forEach { this.append("$it") } }
         writerService.write(quizLocalizationService.greet(name))
         startNewLine()
+    }
 
+    fun beginTest() {
         val questionList = questionService.getQuestions()
+        questionList.forEach { question ->
+            writerService.write(questionConverter.convertEntityToString(listOf(question)))
+            val consoleAnswers = consoleReader.read()
+            consoleAnswersDao.save(question.id, consoleAnswers)
+        }
+    }
 
-        val resultScore = determineCorrectAnswers(questionList)
+    fun countScore() {
+        val questionList = questionService.getQuestions()
+        var resultScore = 0
+        val answersIdxList = questionProperties.idx?.split("")?.filterNot { it == "" }
+
+
+            val result = mutableListOf<String?>()
+
+            consoleAnswersDao.get().forEach { consoleAnswer ->
+                answersIdxList?.let {
+                    if (answersIdxList.contains("$consoleAnswer")) {
+                        val idx = answersIdxList.indexOf("$consoleAnswer")
+                    }
+                }
+            }
+
+
+
         val passingScore = questionProperties.score?.toInt()
         passingScore?.let {
             writerService.write(
@@ -57,29 +79,13 @@ class QuestionExecutorImpl(
         }
     }
 
-    private fun determineCorrectAnswers(questionList: List<Question>): Int {
-        var score = 0
-        val answersIdxList = questionProperties.idx?.split("")?.filterNot { it == "" }
-
-        questionList.forEach { question ->
-            writerService.write(questionConverter.convertEntityToString(listOf(question)))
-            val consoleAnswers = consoleReader.read()
-            val resultAnswers = mutableListOf<String?>()
-
-            consoleAnswers.forEach { consoleAnswer ->
-                val answer = consoleAnswer.toString()
-                answersIdxList?.let {
-                    if (answersIdxList.contains(answer)) {
-                        val idx = answersIdxList.indexOf(consoleAnswer.toString())
-                        resultAnswers.add(question.answers.getOrNull(idx))
-                    }
-                }
-            }
-            if (CollectionUtils.isEqualCollection(question.correctAnswers, resultAnswers.filterNotNull())) {
-                score++
-            }
+    fun getAnswers() {
+        val questionList = questionService.getQuestions()
+        val answers: Map<Int, Collection<*>> = consoleAnswersDao.get()
+        answers.forEach { (k, v) ->
+            writerService.write("Question: ${questionList[k-1].question}, your answers: $v")
+            startNewLine()
         }
-        return score
     }
 
     private fun startNewLine() = writerService.write(NEW_LINE)
