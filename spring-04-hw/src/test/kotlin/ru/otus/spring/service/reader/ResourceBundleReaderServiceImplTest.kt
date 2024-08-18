@@ -1,17 +1,16 @@
 package ru.otus.spring.service.reader
 
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.MessageSource
 import ru.otus.spring.SpringBootTestBase
 import ru.otus.spring.service.config.ApplicationConfig
 
-
-class CsvReaderServiceImplTest : SpringBootTestBase() {
+class ResourceBundleReaderServiceImplTest : SpringBootTestBase() {
 
     @Autowired
-    private lateinit var csvReaderServiceImpl: ReaderService
+    private lateinit var resourceBundleReaderServiceImpl: ReaderService
 
     @Autowired
     private lateinit var messageSource: MessageSource
@@ -22,7 +21,7 @@ class CsvReaderServiceImplTest : SpringBootTestBase() {
     @Test
     fun read() {
         assertNotNull(
-            csvReaderServiceImpl.read(
+            resourceBundleReaderServiceImpl.read(
                 messageSource.getMessage("questions", arrayOf(), applicationConfig.locale)
             )
         )
