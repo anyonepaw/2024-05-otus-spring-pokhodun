@@ -18,7 +18,8 @@ class QuestionConverterImpl(
             Question(
                 id = index + 1,
                 question = "${pair[0].trim()}?",
-                answers = pair[1].split(COMMA_REGEX).filterNot { it == "" })
+                answers = pair[1].split(COMMA_REGEX).filterNot { it == "" }
+            )
         }
     }
 
@@ -26,7 +27,7 @@ class QuestionConverterImpl(
         val questions = entities.map { it as Question }
         return buildString {
             questions.forEach {
-                this.append("$NEW_LINE${it.id}. ${it.question} $NEW_LINE")
+                this.append("${it.id}. ${it.question}$NEW_LINE")
                 it.answers.forEachIndexed { index, answer ->
                     this.append("${questionProperties.idx?.get(index)}. $answer$NEW_LINE")
                 }
