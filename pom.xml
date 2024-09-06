@@ -13,5 +13,6 @@
     <module>spring-01-hw</module>
     <module>spring-02-hw</module>
     <module>spring-03-hw</module>
+    <module>spring-04-hw</module>
   </modules>
 </project>
